@@ -1,0 +1,4 @@
+services:
+    nti.pdfjs.viewer:
+        class: NTI\PDFJSBundle\Viewer
+        arguments: ['@service_container', '@templating', '@router']
