@@ -1,6 +1,6 @@
 <?php
 
-namespace NTI\PDFJSBundle\Tests\Controller;
+namespace NTI\PdfJsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

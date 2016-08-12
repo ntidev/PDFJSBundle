@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* globals VBArray, PDFJS */
+/* globals VBArray, PdfJs */
 
 'use strict';
 
-// Initializing PDFJS global object here, it case if we need to change/disable
+// Initializing PdfJs global object here, it case if we need to change/disable
 // some PDF.js features, e.g. range requests
-if (typeof PDFJS === 'undefined') {
-  (typeof window !== 'undefined' ? window : this).PDFJS = {};
+if (typeof PdfJs === 'undefined') {
+  (typeof window !== 'undefined' ? window : this).PdfJs = {};
 }
 
 // Checking if the typed arrays are supported
@@ -165,7 +165,7 @@ if (typeof PDFJS === 'undefined') {
   }
 
   // The worker will be using XHR, so we can save time and disable worker.
-  PDFJS.disableWorker = true;
+  PdfJs.disableWorker = true;
 
   Object.defineProperty(xhrPrototype, 'responseType', {
     get: function xmlHttpRequestGetResponseType() {
@@ -441,7 +441,7 @@ if (typeof PDFJS === 'undefined') {
 (function checkOnBlobSupport() {
   // sometimes IE loosing the data created with createObjectURL(), see #3977
   if (navigator.userAgent.indexOf('Trident') >= 0) {
-    PDFJS.disableCreateObjectURL = true;
+    PdfJs.disableCreateObjectURL = true;
   }
 })();
 
@@ -450,7 +450,7 @@ if (typeof PDFJS === 'undefined') {
   if ('language' in navigator) {
     return;
   }
-  PDFJS.locale = navigator.userLanguage || 'en-US';
+  PdfJs.locale = navigator.userLanguage || 'en-US';
 })();
 
 (function checkRangeRequests() {
@@ -473,8 +473,8 @@ if (typeof PDFJS === 'undefined') {
   var isChromeWithRangeBug = /Chrome\/(39|40)\./.test(navigator.userAgent);
 
   if (isSafari || isOldAndroid || isChromeWithRangeBug) {
-    PDFJS.disableRange = true;
-    PDFJS.disableStream = true;
+    PdfJs.disableRange = true;
+    PdfJs.disableStream = true;
   }
 })();
 
@@ -485,7 +485,7 @@ if (typeof PDFJS === 'undefined') {
   // Android 3.0 and restored as late as in Android 4.2.
   // Support: Android 2.x
   if (!history.pushState || navigator.userAgent.indexOf('Android 2.') >= 0) {
-    PDFJS.disableHistory = true;
+    PdfJs.disableHistory = true;
   }
 })();
 
@@ -562,7 +562,7 @@ if (typeof PDFJS === 'undefined') {
   var isAndroid = /Android/g.test(navigator.userAgent);
   if (isIOS || isAndroid) {
     // 5MP
-    PDFJS.maxCanvasPixels = 5242880;
+    PdfJs.maxCanvasPixels = 5242880;
   }
 })();
 
@@ -572,6 +572,6 @@ if (typeof PDFJS === 'undefined') {
   var isEmbeddedIE = (navigator.userAgent.indexOf('Trident') >= 0 &&
                       window.parent !== window);
   if (isEmbeddedIE) {
-    PDFJS.disableFullscreen = true;
+    PdfJs.disableFullscreen = true;
   }
 })();

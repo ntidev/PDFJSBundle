@@ -1,6 +1,6 @@
 <?php
 
-namespace NTI\PDFJSBundle\DependencyInjection;
+namespace NTI\PdfJsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 /*jshint globalstrict: false */
-/* globals PDFJS */
+/* globals PdfJs */
 
-// Initializing PDFJS global object (if still undefined)
-if (typeof PDFJS === 'undefined') {
-  (typeof window !== 'undefined' ? window : this).PDFJS = {};
+// Initializing PdfJs global object (if still undefined)
+if (typeof PdfJs === 'undefined') {
+  (typeof window !== 'undefined' ? window : this).PdfJs = {};
 }
 
-PDFJS.version = '1.1.366';
-PDFJS.build = '9e9df56';
+PdfJs.version = '1.1.366';
+PdfJs.build = '9e9df56';
 
 (function pdfjsWrapper() {
   // Use strict in our context only - users might not want it
@@ -97,23 +97,23 @@ var FontType = {
   MMTYPE1: 10
 };
 
-// The global PDFJS object exposes the API
+// The global PdfJs object exposes the API
 // In production, it will be declared outside a global wrapper
 // In development, it will be declared here
-if (!globalScope.PDFJS) {
-  globalScope.PDFJS = {};
+if (!globalScope.PdfJs) {
+  globalScope.PdfJs = {};
 }
 
-globalScope.PDFJS.pdfBug = false;
+globalScope.PdfJs.pdfBug = false;
 
-PDFJS.VERBOSITY_LEVELS = {
+PdfJs.VERBOSITY_LEVELS = {
   errors: 0,
   warnings: 1,
   infos: 5
 };
 
 // All the possible operations for an operator list.
-var OPS = PDFJS.OPS = {
+var OPS = PdfJs.OPS = {
   // Intentionally start from 1 so it is easy to spot bad operators that will be
   // 0's.
   dependency: 1,
@@ -213,14 +213,14 @@ var OPS = PDFJS.OPS = {
 // as warning that Workers were disabled, which is important to devs but not
 // end users.
 function info(msg) {
-  if (PDFJS.verbosity >= PDFJS.VERBOSITY_LEVELS.infos) {
+  if (PdfJs.verbosity >= PdfJs.VERBOSITY_LEVELS.infos) {
     console.log('Info: ' + msg);
   }
 }
 
 // Non-fatal warnings.
 function warn(msg) {
-  if (PDFJS.verbosity >= PDFJS.VERBOSITY_LEVELS.warnings) {
+  if (PdfJs.verbosity >= PdfJs.VERBOSITY_LEVELS.warnings) {
     console.log('Warning: ' + msg);
   }
 }
@@ -228,7 +228,7 @@ function warn(msg) {
 // Fatal errors that should trigger the fallback UI and halt execution by
 // throwing an exception.
 function error(msg) {
-  if (PDFJS.verbosity >= PDFJS.VERBOSITY_LEVELS.errors) {
+  if (PdfJs.verbosity >= PdfJs.VERBOSITY_LEVELS.errors) {
     console.log('Error: ' + msg);
     console.log(backtrace());
   }
@@ -250,7 +250,7 @@ function assert(cond, msg) {
   }
 }
 
-var UNSUPPORTED_FEATURES = PDFJS.UNSUPPORTED_FEATURES = {
+var UNSUPPORTED_FEATURES = PdfJs.UNSUPPORTED_FEATURES = {
   unknown: 'unknown',
   forms: 'forms',
   javaScript: 'javaScript',
@@ -259,7 +259,7 @@ var UNSUPPORTED_FEATURES = PDFJS.UNSUPPORTED_FEATURES = {
   font: 'font'
 };
 
-var UnsupportedManager = PDFJS.UnsupportedManager =
+var UnsupportedManager = PdfJs.UnsupportedManager =
   (function UnsupportedManagerClosure() {
   var listeners = [];
   return {
@@ -329,7 +329,7 @@ function isValidUrl(url, allowRelative) {
       return false;
   }
 }
-PDFJS.isValidUrl = isValidUrl;
+PdfJs.isValidUrl = isValidUrl;
 
 function shadow(obj, prop, value) {
   Object.defineProperty(obj, prop, { value: value,
@@ -338,9 +338,9 @@ function shadow(obj, prop, value) {
                                      writable: false });
   return value;
 }
-PDFJS.shadow = shadow;
+PdfJs.shadow = shadow;
 
-var PasswordResponses = PDFJS.PasswordResponses = {
+var PasswordResponses = PdfJs.PasswordResponses = {
   NEED_PASSWORD: 1,
   INCORRECT_PASSWORD: 2
 };
@@ -357,7 +357,7 @@ var PasswordException = (function PasswordExceptionClosure() {
 
   return PasswordException;
 })();
-PDFJS.PasswordException = PasswordException;
+PdfJs.PasswordException = PasswordException;
 
 var UnknownErrorException = (function UnknownErrorExceptionClosure() {
   function UnknownErrorException(msg, details) {
@@ -371,7 +371,7 @@ var UnknownErrorException = (function UnknownErrorExceptionClosure() {
 
   return UnknownErrorException;
 })();
-PDFJS.UnknownErrorException = UnknownErrorException;
+PdfJs.UnknownErrorException = UnknownErrorException;
 
 var InvalidPDFException = (function InvalidPDFExceptionClosure() {
   function InvalidPDFException(msg) {
@@ -384,7 +384,7 @@ var InvalidPDFException = (function InvalidPDFExceptionClosure() {
 
   return InvalidPDFException;
 })();
-PDFJS.InvalidPDFException = InvalidPDFException;
+PdfJs.InvalidPDFException = InvalidPDFException;
 
 var MissingPDFException = (function MissingPDFExceptionClosure() {
   function MissingPDFException(msg) {
@@ -397,7 +397,7 @@ var MissingPDFException = (function MissingPDFExceptionClosure() {
 
   return MissingPDFException;
 })();
-PDFJS.MissingPDFException = MissingPDFException;
+PdfJs.MissingPDFException = MissingPDFException;
 
 var UnexpectedResponseException =
     (function UnexpectedResponseExceptionClosure() {
@@ -412,7 +412,7 @@ var UnexpectedResponseException =
 
   return UnexpectedResponseException;
 })();
-PDFJS.UnexpectedResponseException = UnexpectedResponseException;
+PdfJs.UnexpectedResponseException = UnexpectedResponseException;
 
 var NotImplementedException = (function NotImplementedExceptionClosure() {
   function NotImplementedException(msg) {
@@ -516,10 +516,10 @@ function isLittleEndian() {
   return (buffer16[0] === 1);
 }
 
-Object.defineProperty(PDFJS, 'isLittleEndian', {
+Object.defineProperty(PdfJs, 'isLittleEndian', {
   configurable: true,
-  get: function PDFJS_isLittleEndian() {
-    return shadow(PDFJS, 'isLittleEndian', isLittleEndian());
+  get: function PdfJs_isLittleEndian() {
+    return shadow(PdfJs, 'isLittleEndian', isLittleEndian());
   }
 });
 
@@ -532,10 +532,10 @@ function hasCanvasTypedArrays() {
   return (typeof imageData.data.buffer !== 'undefined');
 }
 
-Object.defineProperty(PDFJS, 'hasCanvasTypedArrays', {
+Object.defineProperty(PdfJs, 'hasCanvasTypedArrays', {
   configurable: true,
-  get: function PDFJS_hasCanvasTypedArrays() {
-    return shadow(PDFJS, 'hasCanvasTypedArrays', hasCanvasTypedArrays());
+  get: function PdfJs_hasCanvasTypedArrays() {
+    return shadow(PdfJs, 'hasCanvasTypedArrays', hasCanvasTypedArrays());
   }
 });
 
@@ -581,7 +581,7 @@ var Uint32ArrayView = (function Uint32ArrayViewClosure() {
 
 var IDENTITY_MATRIX = [1, 0, 0, 1, 0, 0];
 
-var Util = PDFJS.Util = (function UtilClosure() {
+var Util = PdfJs.Util = (function UtilClosure() {
   function Util() {}
 
   var rgbBuf = ['rgb(', 0, ',', 0, ',', 0, ')'];
@@ -796,9 +796,9 @@ var Util = PDFJS.Util = (function UtilClosure() {
 /**
  * PDF page viewport created based on scale, rotation and offset.
  * @class
- * @alias PDFJS.PageViewport
+ * @alias PdfJs.PageViewport
  */
-var PageViewport = PDFJS.PageViewport = (function PageViewportClosure() {
+var PageViewport = PdfJs.PageViewport = (function PageViewportClosure() {
   /**
    * @constructor
    * @private
@@ -872,13 +872,13 @@ var PageViewport = PDFJS.PageViewport = (function PageViewportClosure() {
     this.height = height;
     this.fontScale = scale;
   }
-  PageViewport.prototype = /** @lends PDFJS.PageViewport.prototype */ {
+  PageViewport.prototype = /** @lends PdfJs.PageViewport.prototype */ {
     /**
      * Clones viewport with additional properties.
      * @param args {Object} (optional) If specified, may contain the 'scale' or
      * 'rotation' properties to override the corresponding properties in
      * the cloned viewport.
-     * @returns {PDFJS.PageViewport} Cloned viewport.
+     * @returns {PdfJs.PageViewport} Cloned viewport.
      */
     clone: function PageViewPort_clone(args) {
       args = args || {};
@@ -1035,7 +1035,7 @@ function isRef(v) {
 
 /**
  * Creates a promise capability object.
- * @alias PDFJS.createPromiseCapability
+ * @alias PdfJs.createPromiseCapability
  *
  * @return {PromiseCapability} A capability object contains:
  * - a Promise, resolve and reject methods.
@@ -1049,7 +1049,7 @@ function createPromiseCapability() {
   return capability;
 }
 
-PDFJS.createPromiseCapability = createPromiseCapability;
+PdfJs.createPromiseCapability = createPromiseCapability;
 
 /**
  * Polyfill for Promises:
@@ -1427,7 +1427,7 @@ var StatTimer = (function StatTimerClosure() {
   return StatTimer;
 })();
 
-PDFJS.createBlob = function createBlob(data, contentType) {
+PdfJs.createBlob = function createBlob(data, contentType) {
   if (typeof Blob !== 'undefined') {
     return new Blob([data], { type: contentType });
   }
@@ -1437,15 +1437,15 @@ PDFJS.createBlob = function createBlob(data, contentType) {
   return bb.getBlob(contentType);
 };
 
-PDFJS.createObjectURL = (function createObjectURLClosure() {
+PdfJs.createObjectURL = (function createObjectURLClosure() {
   // Blob/createObjectURL is not available, falling back to data schema.
   var digits =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
   return function createObjectURL(data, contentType) {
-    if (!PDFJS.disableCreateObjectURL &&
+    if (!PdfJs.disableCreateObjectURL &&
         typeof URL !== 'undefined' && URL.createObjectURL) {
-      var blob = PDFJS.createBlob(data, contentType);
+      var blob = PdfJs.createBlob(data, contentType);
       return URL.createObjectURL(blob);
     }
 
@@ -2376,7 +2376,7 @@ var ChunkedStreamManager = (function ChunkedStreamManagerClosure() {
 // The maximum number of bytes fetched per range request
 var RANGE_CHUNK_SIZE = 65536;
 
-// TODO(mack): Make use of PDFJS.Util.inherit() when it becomes available
+// TODO(mack): Make use of PdfJs.Util.inherit() when it becomes available
 var BasePdfManager = (function BasePdfManagerClosure() {
   function BasePdfManager() {
     throw new Error('Cannot initialize BaseManagerManager');
@@ -10904,7 +10904,7 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
         warn('Image dimensions are missing, or not numbers.');
         return;
       }
-      if (PDFJS.maxImageSize !== -1 && w * h > PDFJS.maxImageSize) {
+      if (PdfJs.maxImageSize !== -1 && w * h > PdfJs.maxImageSize) {
         warn('Image exceeded maximum allowed size and was removed.');
         return;
       }
@@ -11054,7 +11054,7 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
       var glyphs = font.charsToGlyphs(chars);
       var isAddToPathSet = !!(state.textRenderingMode &
                               TextRenderingMode.ADD_TO_PATH_FLAG);
-      if (font.data && (isAddToPathSet || PDFJS.disableFontFace)) {
+      if (font.data && (isAddToPathSet || PdfJs.disableFontFace)) {
         var buildPath = function (fontChar) {
           if (!font.renderer.hasBuiltPath(fontChar)) {
             var path = font.renderer.getPathJs(fontChar);
@@ -11660,7 +11660,7 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
 
       function runBidi(textChunk) {
         var str = textChunk.str.join('');
-        var bidiResult = PDFJS.bidi(str, -1, textState.font.vertical);
+        var bidiResult = PdfJs.bidi(str, -1, textState.font.vertical);
         textChunk.str = bidiResult.str;
         textChunk.dir = bidiResult.dir;
         return textChunk;
@@ -12082,14 +12082,14 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
       var cmap, cmapObj = toUnicode;
       if (isName(cmapObj)) {
         cmap = CMapFactory.create(cmapObj,
-          { url: PDFJS.cMapUrl, packed: PDFJS.cMapPacked }, null);
+          { url: PdfJs.cMapUrl, packed: PdfJs.cMapPacked }, null);
         if (cmap instanceof IdentityCMap) {
           return new IdentityToUnicodeMap(0, 0xFFFF);
         }
         return new ToUnicodeMap(cmap.getMap());
       } else if (isStream(cmapObj)) {
         cmap = CMapFactory.create(cmapObj,
-          { url: PDFJS.cMapUrl, packed: PDFJS.cMapPacked }, null);
+          { url: PdfJs.cMapUrl, packed: PdfJs.cMapPacked }, null);
         if (cmap instanceof IdentityCMap) {
           return new IdentityToUnicodeMap(0, 0xFFFF);
         }
@@ -12501,7 +12501,7 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
           properties.cidEncoding = cidEncoding.name;
         }
         properties.cMap = CMapFactory.create(cidEncoding,
-          { url: PDFJS.cMapUrl, packed: PDFJS.cMapPacked }, null);
+          { url: PdfJs.cMapUrl, packed: PdfJs.cMapPacked }, null);
         properties.vertical = properties.cMap.vertical;
       }
       this.extractDataStructures(dict, baseDict, xref, properties);
@@ -13792,7 +13792,7 @@ var IdentityCMap = (function IdentityCMapClosure() {
 
 var BinaryCMapReader = (function BinaryCMapReaderClosure() {
   function fetchBinaryData(url) {
-    var nonBinaryRequest = PDFJS.disableWorker;
+    var nonBinaryRequest = PdfJs.disableWorker;
     var request = new XMLHttpRequest();
     request.open('GET', url, false);
     if (!nonBinaryRequest) {
@@ -18990,7 +18990,7 @@ var Font = (function FontClosure() {
         // d) Obtain the CMap with the name constructed in step (c) (available
         // from the ASN Web site; see the Bibliography).
         var ucs2CMap = CMapFactory.create(ucs2CMapName,
-          { url: PDFJS.cMapUrl, packed: PDFJS.cMapPacked }, null);
+          { url: PdfJs.cMapUrl, packed: PdfJs.cMapPacked }, null);
         var cMap = properties.cMap;
         toUnicode = [];
         cMap.forEach(function(charcode, cid) {
@@ -32564,7 +32564,7 @@ var JpegStream = (function JpegStreamClosure() {
   };
 
   JpegStream.prototype.getIR = function JpegStream_getIR() {
-    return PDFJS.createObjectURL(this.bytes, 'image/jpeg');
+    return PdfJs.createObjectURL(this.bytes, 'image/jpeg');
   };
   /**
    * Checks if the image can be decoded and displayed by the browser without any
@@ -34099,7 +34099,7 @@ var NullStream = (function NullStreamClosure() {
 })();
 
 
-var WorkerMessageHandler = PDFJS.WorkerMessageHandler = {
+var WorkerMessageHandler = PdfJs.WorkerMessageHandler = {
   setup: function wphSetup(handler) {
     var pdfManager;
 
@@ -34337,14 +34337,14 @@ var WorkerMessageHandler = PDFJS.WorkerMessageHandler = {
         }
       };
 
-      PDFJS.maxImageSize = data.maxImageSize === undefined ?
+      PdfJs.maxImageSize = data.maxImageSize === undefined ?
                            -1 : data.maxImageSize;
-      PDFJS.disableFontFace = data.disableFontFace;
-      PDFJS.disableCreateObjectURL = data.disableCreateObjectURL;
-      PDFJS.verbosity = data.verbosity;
-      PDFJS.cMapUrl = data.cMapUrl === undefined ?
+      PdfJs.disableFontFace = data.disableFontFace;
+      PdfJs.disableCreateObjectURL = data.disableCreateObjectURL;
+      PdfJs.verbosity = data.verbosity;
+      PdfJs.cMapUrl = data.cMapUrl === undefined ?
                            null : data.cMapUrl;
-      PDFJS.cMapPacked = data.cMapPacked === true;
+      PdfJs.cMapPacked = data.cMapPacked === true;
 
       getPdfManager(data).then(function () {
         handler.send('PDFManagerReady', null);
@@ -34564,7 +34564,7 @@ if (typeof window === 'undefined') {
   }
 
   // Listen for unsupported features so we can pass them on to the main thread.
-  PDFJS.UnsupportedManager.listen(function (msg) {
+  PdfJs.UnsupportedManager.listen(function (msg) {
     globalScope.postMessage({
       action: '_unsupported_feature',
       data: msg
@@ -39015,7 +39015,7 @@ var Jbig2Image = (function Jbig2ImageClosure() {
 })();
 
 
-var bidi = PDFJS.bidi = (function bidiClosure() {
+var bidi = PdfJs.bidi = (function bidiClosure() {
   // Character types for symbols from 0000 to 00FF.
   var baseTypes = [
     'BN', 'BN', 'BN', 'BN', 'BN', 'BN', 'BN', 'BN', 'BN', 'S', 'B', 'S', 'WS',
@@ -39566,9 +39566,9 @@ var MurmurHash3_64 = (function MurmurHash3_64Closure (seed) {
 
 }).call((typeof window === 'undefined') ? this : window);
 
-if (!PDFJS.workerSrc && typeof document !== 'undefined') {
+if (!PdfJs.workerSrc && typeof document !== 'undefined') {
   // workerSrc is not set -- using last script url to define default location
-  PDFJS.workerSrc = (function () {
+  PdfJs.workerSrc = (function () {
     'use strict';
     var scriptTagContainer = document.body ||
                              document.getElementsByTagName('head')[0];

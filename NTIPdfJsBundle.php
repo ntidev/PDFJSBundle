@@ -1,9 +1,9 @@
 <?php
 
-namespace NTI\PDFJSBundle;
+namespace NTI\PdfJsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class NTIPDFJSBundle extends Bundle
+class NTIPdfJsBundle extends Bundle
 {
 }

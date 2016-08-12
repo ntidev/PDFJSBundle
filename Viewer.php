@@ -1,6 +1,6 @@
 <?php
 
-namespace NTI\PDFJSBundle;
+namespace NTI\PdfJsBundle;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Router;
@@ -29,7 +29,7 @@ class Viewer {
 
         $pdf = $this->router->generate($route, $params);
 
-        return $this->templating->render('NTIPDFJSBundle:Viewer:viewer.html.twig', array(
+        return $this->templating->render('NTIPdfJsBundle:Viewer:viewer.html.twig', array(
             'file' => $pdf
         ));
     }

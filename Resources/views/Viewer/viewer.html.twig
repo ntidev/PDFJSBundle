@@ -408,8 +408,8 @@ See https://github.com/adobe-type-tools/cmap-resources
     <script src="{{ asset('bundles/ntipdfjs/js/build/pdf.js') }}"></script>
     <script src="{{ asset('bundles/ntipdfjs/js/debugger.js') }}"></script>
     <script type="text/javascript">
-      PDFJS.imageResourcesPath = "{{ asset('bundles/ntipdfjs/cs/images/') }}";
-      PDFJS.workerSrc = '{{ asset('bundles/ntipdfjs/js/build/pdf.worker.js') }}';
+      PdfJs.imageResourcesPath = "{{ asset('bundles/ntipdfjs/cs/images/') }}";
+      PdfJs.workerSrc = '{{ asset('bundles/ntipdfjs/js/build/pdf.worker.js') }}';
       var DEFAULT_URL = '{{ file }}';
     </script>
     <script src="{{ asset('bundles/ntipdfjs/js/viewer.js') }}"></script>

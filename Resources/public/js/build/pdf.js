@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 /*jshint globalstrict: false */
-/* globals PDFJS */
+/* globals PdfJs */
 
-// Initializing PDFJS global object (if still undefined)
-if (typeof PDFJS === 'undefined') {
-  (typeof window !== 'undefined' ? window : this).PDFJS = {};
+// Initializing PdfJs global object (if still undefined)
+if (typeof PdfJs === 'undefined') {
+  (typeof window !== 'undefined' ? window : this).PdfJs = {};
 }
 
-PDFJS.version = '1.1.366';
-PDFJS.build = '9e9df56';
+PdfJs.version = '1.1.366';
+PdfJs.build = '9e9df56';
 
 (function pdfjsWrapper() {
   // Use strict in our context only - users might not want it
@@ -97,23 +97,23 @@ var FontType = {
   MMTYPE1: 10
 };
 
-// The global PDFJS object exposes the API
+// The global PdfJs object exposes the API
 // In production, it will be declared outside a global wrapper
 // In development, it will be declared here
-if (!globalScope.PDFJS) {
-  globalScope.PDFJS = {};
+if (!globalScope.PdfJs) {
+  globalScope.PdfJs = {};
 }
 
-globalScope.PDFJS.pdfBug = false;
+globalScope.PdfJs.pdfBug = false;
 
-PDFJS.VERBOSITY_LEVELS = {
+PdfJs.VERBOSITY_LEVELS = {
   errors: 0,
   warnings: 1,
   infos: 5
 };
 
 // All the possible operations for an operator list.
-var OPS = PDFJS.OPS = {
+var OPS = PdfJs.OPS = {
   // Intentionally start from 1 so it is easy to spot bad operators that will be
   // 0's.
   dependency: 1,
@@ -213,14 +213,14 @@ var OPS = PDFJS.OPS = {
 // as warning that Workers were disabled, which is important to devs but not
 // end users.
 function info(msg) {
-  if (PDFJS.verbosity >= PDFJS.VERBOSITY_LEVELS.infos) {
+  if (PdfJs.verbosity >= PdfJs.VERBOSITY_LEVELS.infos) {
     console.log('Info: ' + msg);
   }
 }
 
 // Non-fatal warnings.
 function warn(msg) {
-  if (PDFJS.verbosity >= PDFJS.VERBOSITY_LEVELS.warnings) {
+  if (PdfJs.verbosity >= PdfJs.VERBOSITY_LEVELS.warnings) {
     console.log('Warning: ' + msg);
   }
 }
@@ -228,7 +228,7 @@ function warn(msg) {
 // Fatal errors that should trigger the fallback UI and halt execution by
 // throwing an exception.
 function error(msg) {
-  if (PDFJS.verbosity >= PDFJS.VERBOSITY_LEVELS.errors) {
+  if (PdfJs.verbosity >= PdfJs.VERBOSITY_LEVELS.errors) {
     console.log('Error: ' + msg);
     console.log(backtrace());
   }
@@ -250,7 +250,7 @@ function assert(cond, msg) {
   }
 }
 
-var UNSUPPORTED_FEATURES = PDFJS.UNSUPPORTED_FEATURES = {
+var UNSUPPORTED_FEATURES = PdfJs.UNSUPPORTED_FEATURES = {
   unknown: 'unknown',
   forms: 'forms',
   javaScript: 'javaScript',
@@ -259,7 +259,7 @@ var UNSUPPORTED_FEATURES = PDFJS.UNSUPPORTED_FEATURES = {
   font: 'font'
 };
 
-var UnsupportedManager = PDFJS.UnsupportedManager =
+var UnsupportedManager = PdfJs.UnsupportedManager =
   (function UnsupportedManagerClosure() {
   var listeners = [];
   return {
@@ -329,7 +329,7 @@ function isValidUrl(url, allowRelative) {
       return false;
   }
 }
-PDFJS.isValidUrl = isValidUrl;
+PdfJs.isValidUrl = isValidUrl;
 
 function shadow(obj, prop, value) {
   Object.defineProperty(obj, prop, { value: value,
@@ -338,9 +338,9 @@ function shadow(obj, prop, value) {
                                      writable: false });
   return value;
 }
-PDFJS.shadow = shadow;
+PdfJs.shadow = shadow;
 
-var PasswordResponses = PDFJS.PasswordResponses = {
+var PasswordResponses = PdfJs.PasswordResponses = {
   NEED_PASSWORD: 1,
   INCORRECT_PASSWORD: 2
 };
@@ -357,7 +357,7 @@ var PasswordException = (function PasswordExceptionClosure() {
 
   return PasswordException;
 })();
-PDFJS.PasswordException = PasswordException;
+PdfJs.PasswordException = PasswordException;
 
 var UnknownErrorException = (function UnknownErrorExceptionClosure() {
   function UnknownErrorException(msg, details) {
@@ -371,7 +371,7 @@ var UnknownErrorException = (function UnknownErrorExceptionClosure() {
 
   return UnknownErrorException;
 })();
-PDFJS.UnknownErrorException = UnknownErrorException;
+PdfJs.UnknownErrorException = UnknownErrorException;
 
 var InvalidPDFException = (function InvalidPDFExceptionClosure() {
   function InvalidPDFException(msg) {
@@ -384,7 +384,7 @@ var InvalidPDFException = (function InvalidPDFExceptionClosure() {
 
   return InvalidPDFException;
 })();
-PDFJS.InvalidPDFException = InvalidPDFException;
+PdfJs.InvalidPDFException = InvalidPDFException;
 
 var MissingPDFException = (function MissingPDFExceptionClosure() {
   function MissingPDFException(msg) {
@@ -397,7 +397,7 @@ var MissingPDFException = (function MissingPDFExceptionClosure() {
 
   return MissingPDFException;
 })();
-PDFJS.MissingPDFException = MissingPDFException;
+PdfJs.MissingPDFException = MissingPDFException;
 
 var UnexpectedResponseException =
     (function UnexpectedResponseExceptionClosure() {
@@ -412,7 +412,7 @@ var UnexpectedResponseException =
 
   return UnexpectedResponseException;
 })();
-PDFJS.UnexpectedResponseException = UnexpectedResponseException;
+PdfJs.UnexpectedResponseException = UnexpectedResponseException;
 
 var NotImplementedException = (function NotImplementedExceptionClosure() {
   function NotImplementedException(msg) {
@@ -516,10 +516,10 @@ function isLittleEndian() {
   return (buffer16[0] === 1);
 }
 
-Object.defineProperty(PDFJS, 'isLittleEndian', {
+Object.defineProperty(PdfJs, 'isLittleEndian', {
   configurable: true,
-  get: function PDFJS_isLittleEndian() {
-    return shadow(PDFJS, 'isLittleEndian', isLittleEndian());
+  get: function PdfJs_isLittleEndian() {
+    return shadow(PdfJs, 'isLittleEndian', isLittleEndian());
   }
 });
 
@@ -532,10 +532,10 @@ function hasCanvasTypedArrays() {
   return (typeof imageData.data.buffer !== 'undefined');
 }
 
-Object.defineProperty(PDFJS, 'hasCanvasTypedArrays', {
+Object.defineProperty(PdfJs, 'hasCanvasTypedArrays', {
   configurable: true,
-  get: function PDFJS_hasCanvasTypedArrays() {
-    return shadow(PDFJS, 'hasCanvasTypedArrays', hasCanvasTypedArrays());
+  get: function PdfJs_hasCanvasTypedArrays() {
+    return shadow(PdfJs, 'hasCanvasTypedArrays', hasCanvasTypedArrays());
   }
 });
 
@@ -581,7 +581,7 @@ var Uint32ArrayView = (function Uint32ArrayViewClosure() {
 
 var IDENTITY_MATRIX = [1, 0, 0, 1, 0, 0];
 
-var Util = PDFJS.Util = (function UtilClosure() {
+var Util = PdfJs.Util = (function UtilClosure() {
   function Util() {}
 
   var rgbBuf = ['rgb(', 0, ',', 0, ',', 0, ')'];
@@ -796,9 +796,9 @@ var Util = PDFJS.Util = (function UtilClosure() {
 /**
  * PDF page viewport created based on scale, rotation and offset.
  * @class
- * @alias PDFJS.PageViewport
+ * @alias PdfJs.PageViewport
  */
-var PageViewport = PDFJS.PageViewport = (function PageViewportClosure() {
+var PageViewport = PdfJs.PageViewport = (function PageViewportClosure() {
   /**
    * @constructor
    * @private
@@ -872,13 +872,13 @@ var PageViewport = PDFJS.PageViewport = (function PageViewportClosure() {
     this.height = height;
     this.fontScale = scale;
   }
-  PageViewport.prototype = /** @lends PDFJS.PageViewport.prototype */ {
+  PageViewport.prototype = /** @lends PdfJs.PageViewport.prototype */ {
     /**
      * Clones viewport with additional properties.
      * @param args {Object} (optional) If specified, may contain the 'scale' or
      * 'rotation' properties to override the corresponding properties in
      * the cloned viewport.
-     * @returns {PDFJS.PageViewport} Cloned viewport.
+     * @returns {PdfJs.PageViewport} Cloned viewport.
      */
     clone: function PageViewPort_clone(args) {
       args = args || {};
@@ -1035,7 +1035,7 @@ function isRef(v) {
 
 /**
  * Creates a promise capability object.
- * @alias PDFJS.createPromiseCapability
+ * @alias PdfJs.createPromiseCapability
  *
  * @return {PromiseCapability} A capability object contains:
  * - a Promise, resolve and reject methods.
@@ -1049,7 +1049,7 @@ function createPromiseCapability() {
   return capability;
 }
 
-PDFJS.createPromiseCapability = createPromiseCapability;
+PdfJs.createPromiseCapability = createPromiseCapability;
 
 /**
  * Polyfill for Promises:
@@ -1427,7 +1427,7 @@ var StatTimer = (function StatTimerClosure() {
   return StatTimer;
 })();
 
-PDFJS.createBlob = function createBlob(data, contentType) {
+PdfJs.createBlob = function createBlob(data, contentType) {
   if (typeof Blob !== 'undefined') {
     return new Blob([data], { type: contentType });
   }
@@ -1437,15 +1437,15 @@ PDFJS.createBlob = function createBlob(data, contentType) {
   return bb.getBlob(contentType);
 };
 
-PDFJS.createObjectURL = (function createObjectURLClosure() {
+PdfJs.createObjectURL = (function createObjectURLClosure() {
   // Blob/createObjectURL is not available, falling back to data schema.
   var digits =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
   return function createObjectURL(data, contentType) {
-    if (!PDFJS.disableCreateObjectURL &&
+    if (!PdfJs.disableCreateObjectURL &&
         typeof URL !== 'undefined' && URL.createObjectURL) {
-      var blob = PDFJS.createBlob(data, contentType);
+      var blob = PdfJs.createBlob(data, contentType);
       return URL.createObjectURL(blob);
     }
 
@@ -1602,21 +1602,21 @@ function loadJpegStream(id, imageUrl, objs) {
  * above this value will not be drawn. Use -1 for no limit.
  * @var {number}
  */
-PDFJS.maxImageSize = (PDFJS.maxImageSize === undefined ?
-                      -1 : PDFJS.maxImageSize);
+PdfJs.maxImageSize = (PdfJs.maxImageSize === undefined ?
+                      -1 : PdfJs.maxImageSize);
 
 /**
  * The url of where the predefined Adobe CMaps are located. Include trailing
  * slash.
  * @var {string}
  */
-PDFJS.cMapUrl = (PDFJS.cMapUrl === undefined ? null : PDFJS.cMapUrl);
+PdfJs.cMapUrl = (PdfJs.cMapUrl === undefined ? null : PdfJs.cMapUrl);
 
 /**
  * Specifies if CMaps are binary packed.
  * @var {boolean}
  */
-PDFJS.cMapPacked = PDFJS.cMapPacked === undefined ? false : PDFJS.cMapPacked;
+PdfJs.cMapPacked = PdfJs.cMapPacked === undefined ? false : PdfJs.cMapPacked;
 
 /**
  * By default fonts are converted to OpenType fonts and loaded via font face
@@ -1624,16 +1624,16 @@ PDFJS.cMapPacked = PDFJS.cMapPacked === undefined ? false : PDFJS.cMapPacked;
  * that constructs the glyphs with primitive path commands.
  * @var {boolean}
  */
-PDFJS.disableFontFace = (PDFJS.disableFontFace === undefined ?
-                         false : PDFJS.disableFontFace);
+PdfJs.disableFontFace = (PdfJs.disableFontFace === undefined ?
+                         false : PdfJs.disableFontFace);
 
 /**
  * Path for image resources, mainly for annotation icons. Include trailing
  * slash.
  * @var {string}
  */
-PDFJS.imageResourcesPath = (PDFJS.imageResourcesPath === undefined ?
-                            '' : PDFJS.imageResourcesPath);
+PdfJs.imageResourcesPath = (PdfJs.imageResourcesPath === undefined ?
+                            '' : PdfJs.imageResourcesPath);
 
 /**
  * Disable the web worker and run all code on the main thread. This will happen
@@ -1641,8 +1641,8 @@ PDFJS.imageResourcesPath = (PDFJS.imageResourcesPath === undefined ?
  * to workers.
  * @var {boolean}
  */
-PDFJS.disableWorker = (PDFJS.disableWorker === undefined ?
-                       false : PDFJS.disableWorker);
+PdfJs.disableWorker = (PdfJs.disableWorker === undefined ?
+                       false : PdfJs.disableWorker);
 
 /**
  * Path and filename of the worker file. Required when the worker is enabled in
@@ -1650,7 +1650,7 @@ PDFJS.disableWorker = (PDFJS.disableWorker === undefined ?
  * loaded based on the location of the pdf.js file.
  * @var {string}
  */
-PDFJS.workerSrc = (PDFJS.workerSrc === undefined ? null : PDFJS.workerSrc);
+PdfJs.workerSrc = (PdfJs.workerSrc === undefined ? null : PdfJs.workerSrc);
 
 /**
  * Disable range request loading of PDF files. When enabled and if the server
@@ -1658,16 +1658,16 @@ PDFJS.workerSrc = (PDFJS.workerSrc === undefined ? null : PDFJS.workerSrc);
  * Enabled (false) by default.
  * @var {boolean}
  */
-PDFJS.disableRange = (PDFJS.disableRange === undefined ?
-                      false : PDFJS.disableRange);
+PdfJs.disableRange = (PdfJs.disableRange === undefined ?
+                      false : PdfJs.disableRange);
 
 /**
  * Disable streaming of PDF file data. By default PDF.js attempts to load PDF
  * in chunks. This default behavior can be disabled.
  * @var {boolean}
  */
-PDFJS.disableStream = (PDFJS.disableStream === undefined ?
-                       false : PDFJS.disableStream);
+PdfJs.disableStream = (PdfJs.disableStream === undefined ?
+                       false : PdfJs.disableStream);
 
 /**
  * Disable pre-fetching of PDF file data. When range requests are enabled PDF.js
@@ -1678,78 +1678,78 @@ PDFJS.disableStream = (PDFJS.disableStream === undefined ?
  *       in order for disabling of pre-fetching to work correctly.
  * @var {boolean}
  */
-PDFJS.disableAutoFetch = (PDFJS.disableAutoFetch === undefined ?
-                          false : PDFJS.disableAutoFetch);
+PdfJs.disableAutoFetch = (PdfJs.disableAutoFetch === undefined ?
+                          false : PdfJs.disableAutoFetch);
 
 /**
  * Enables special hooks for debugging PDF.js.
  * @var {boolean}
  */
-PDFJS.pdfBug = (PDFJS.pdfBug === undefined ? false : PDFJS.pdfBug);
+PdfJs.pdfBug = (PdfJs.pdfBug === undefined ? false : PdfJs.pdfBug);
 
 /**
  * Enables transfer usage in postMessage for ArrayBuffers.
  * @var {boolean}
  */
-PDFJS.postMessageTransfers = (PDFJS.postMessageTransfers === undefined ?
-                              true : PDFJS.postMessageTransfers);
+PdfJs.postMessageTransfers = (PdfJs.postMessageTransfers === undefined ?
+                              true : PdfJs.postMessageTransfers);
 
 /**
  * Disables URL.createObjectURL usage.
  * @var {boolean}
  */
-PDFJS.disableCreateObjectURL = (PDFJS.disableCreateObjectURL === undefined ?
-                                false : PDFJS.disableCreateObjectURL);
+PdfJs.disableCreateObjectURL = (PdfJs.disableCreateObjectURL === undefined ?
+                                false : PdfJs.disableCreateObjectURL);
 
 /**
  * Disables WebGL usage.
  * @var {boolean}
  */
-PDFJS.disableWebGL = (PDFJS.disableWebGL === undefined ?
-                      true : PDFJS.disableWebGL);
+PdfJs.disableWebGL = (PdfJs.disableWebGL === undefined ?
+                      true : PdfJs.disableWebGL);
 
 /**
  * Disables fullscreen support, and by extension Presentation Mode,
  * in browsers which support the fullscreen API.
  * @var {boolean}
  */
-PDFJS.disableFullscreen = (PDFJS.disableFullscreen === undefined ?
-                           false : PDFJS.disableFullscreen);
+PdfJs.disableFullscreen = (PdfJs.disableFullscreen === undefined ?
+                           false : PdfJs.disableFullscreen);
 
 /**
  * Enables CSS only zooming.
  * @var {boolean}
  */
-PDFJS.useOnlyCssZoom = (PDFJS.useOnlyCssZoom === undefined ?
-                        false : PDFJS.useOnlyCssZoom);
+PdfJs.useOnlyCssZoom = (PdfJs.useOnlyCssZoom === undefined ?
+                        false : PdfJs.useOnlyCssZoom);
 
 /**
  * Controls the logging level.
- * The constants from PDFJS.VERBOSITY_LEVELS should be used:
+ * The constants from PdfJs.VERBOSITY_LEVELS should be used:
  * - errors
  * - warnings [default]
  * - infos
  * @var {number}
  */
-PDFJS.verbosity = (PDFJS.verbosity === undefined ?
-                   PDFJS.VERBOSITY_LEVELS.warnings : PDFJS.verbosity);
+PdfJs.verbosity = (PdfJs.verbosity === undefined ?
+                   PdfJs.VERBOSITY_LEVELS.warnings : PdfJs.verbosity);
 
 /**
  * The maximum supported canvas size in total pixels e.g. width * height.
  * The default value is 4096 * 4096. Use -1 for no limit.
  * @var {number}
  */
-PDFJS.maxCanvasPixels = (PDFJS.maxCanvasPixels === undefined ?
-                         16777216 : PDFJS.maxCanvasPixels);
+PdfJs.maxCanvasPixels = (PdfJs.maxCanvasPixels === undefined ?
+                         16777216 : PdfJs.maxCanvasPixels);
 
 /**
  * Opens external links in a new window if enabled. The default behavior opens
  * external links in the PDF.js window.
  * @var {boolean}
  */
-PDFJS.openExternalLinksInNewWindow = (
-  PDFJS.openExternalLinksInNewWindow === undefined ?
-    false : PDFJS.openExternalLinksInNewWindow);
+PdfJs.openExternalLinksInNewWindow = (
+  PdfJs.openExternalLinksInNewWindow === undefined ?
+    false : PdfJs.openExternalLinksInNewWindow);
 
 /**
  * Document initialization / loading parameters object.
@@ -1805,7 +1805,7 @@ PDFJS.openExternalLinksInNewWindow = (
  *
  * @return {PDFDocumentLoadingTask}
  */
-PDFJS.getDocument = function getDocument(src,
+PdfJs.getDocument = function getDocument(src,
                                          pdfDataRangeTransport,
                                          passwordCallback,
                                          progressCallback) {
@@ -2004,7 +2004,7 @@ var PDFDataRangeTransport = (function pdfDataRangeTransportClosure() {
   return PDFDataRangeTransport;
 })();
 
-PDFJS.PDFDataRangeTransport = PDFDataRangeTransport;
+PdfJs.PDFDataRangeTransport = PDFDataRangeTransport;
 
 /**
  * Proxy to a PDFDocument in the worker thread. Also, contains commonly used
@@ -2179,7 +2179,7 @@ var PDFDocumentProxy = (function PDFDocumentProxyClosure() {
  *
  * @typedef {Object} RenderParameters
  * @property {Object} canvasContext - A 2D context of a DOM Canvas object.
- * @property {PDFJS.PageViewport} viewport - Rendering viewport obtained by
+ * @property {PdfJs.PageViewport} viewport - Rendering viewport obtained by
  *                                calling of PDFPage.getViewport method.
  * @property {string} intent - Rendering intent, can be 'display' or 'print'
  *                    (default value is 'display').
@@ -2210,7 +2210,7 @@ var PDFPageProxy = (function PDFPageProxyClosure() {
     this.pageInfo = pageInfo;
     this.transport = transport;
     this.stats = new StatTimer();
-    this.stats.enabled = !!globalScope.PDFJS.enableStats;
+    this.stats.enabled = !!globalScope.PdfJs.enableStats;
     this.commonObjs = transport.commonObjs;
     this.objs = new PDFObjects();
     this.cleanupAfterRender = false;
@@ -2248,14 +2248,14 @@ var PDFPageProxy = (function PDFPageProxyClosure() {
      * @param {number} scale The desired scale of the viewport.
      * @param {number} rotate Degrees to rotate the viewport. If omitted this
      * defaults to the page rotation.
-     * @return {PDFJS.PageViewport} Contains 'width' and 'height' properties
+     * @return {PdfJs.PageViewport} Contains 'width' and 'height' properties
      * along with transforms required for rendering.
      */
     getViewport: function PDFPageProxy_getViewport(scale, rotate) {
       if (arguments.length < 2) {
         rotate = this.rotate;
       }
-      return new PDFJS.PageViewport(this.view, scale, rotate, 0, 0);
+      return new PdfJs.PageViewport(this.view, scale, rotate, 0, 0);
     },
     /**
      * @return {Promise} A promise that is resolved with an {Array} of the
@@ -2502,10 +2502,10 @@ var WorkerTransport = (function WorkerTransportClosure() {
     // all requirements to run parts of pdf.js in a web worker.
     // Right now, the requirement is, that an Uint8Array is still an Uint8Array
     // as it arrives on the worker. Chrome added this with version 15.
-    if (!globalScope.PDFJS.disableWorker && typeof Worker !== 'undefined') {
-      var workerSrc = PDFJS.workerSrc;
+    if (!globalScope.PdfJs.disableWorker && typeof Worker !== 'undefined') {
+      var workerSrc = PdfJs.workerSrc;
       if (!workerSrc) {
-        error('No PDFJS.workerSrc specified');
+        error('No PdfJs.workerSrc specified');
       }
 
       try {
@@ -2520,7 +2520,7 @@ var WorkerTransport = (function WorkerTransportClosure() {
           if (supportTypedArray) {
             this.worker = worker;
             if (!data.supportTransfers) {
-              PDFJS.postMessageTransfers = false;
+              PdfJs.postMessageTransfers = false;
             }
             this.setupMessageHandler(messageHandler);
             workerInitializedCapability.resolve();
@@ -2529,7 +2529,7 @@ var WorkerTransport = (function WorkerTransportClosure() {
           }
         }.bind(this));
 
-        var testObj = new Uint8Array([PDFJS.postMessageTransfers ? 255 : 0]);
+        var testObj = new Uint8Array([PdfJs.postMessageTransfers ? 255 : 0]);
         // Some versions of Opera throw a DATA_CLONE_ERR on serializing the
         // typed array. Also, checking if we can use transfers.
         try {
@@ -2562,18 +2562,18 @@ var WorkerTransport = (function WorkerTransportClosure() {
     },
 
     setupFakeWorker: function WorkerTransport_setupFakeWorker() {
-      globalScope.PDFJS.disableWorker = true;
+      globalScope.PdfJs.disableWorker = true;
 
-      if (!PDFJS.fakeWorkerFilesLoadedCapability) {
-        PDFJS.fakeWorkerFilesLoadedCapability = createPromiseCapability();
+      if (!PdfJs.fakeWorkerFilesLoadedCapability) {
+        PdfJs.fakeWorkerFilesLoadedCapability = createPromiseCapability();
         // In the developer build load worker_loader which in turn loads all the
         // other files and resolves the promise. In production only the
         // pdf.worker.js file is needed.
-        Util.loadScript(PDFJS.workerSrc, function() {
-          PDFJS.fakeWorkerFilesLoadedCapability.resolve();
+        Util.loadScript(PdfJs.workerSrc, function() {
+          PdfJs.fakeWorkerFilesLoadedCapability.resolve();
         });
       }
-      PDFJS.fakeWorkerFilesLoadedCapability.promise.then(function () {
+      PdfJs.fakeWorkerFilesLoadedCapability.promise.then(function () {
         warn('Setting up fake worker.');
         // If we don't use a worker, just post/sendMessage to the main thread.
         var fakeWorker = {
@@ -2588,7 +2588,7 @@ var WorkerTransport = (function WorkerTransportClosure() {
 
         // If the main thread is our worker, setup the handling for the messages
         // the main thread sends to it self.
-        PDFJS.WorkerMessageHandler.setup(messageHandler);
+        PdfJs.WorkerMessageHandler.setup(messageHandler);
 
         this.workerInitializedCapability.resolve();
       }.bind(this));
@@ -2837,8 +2837,8 @@ var WorkerTransport = (function WorkerTransportClosure() {
     fetchDocument: function WorkerTransport_fetchDocument(loadingTask, source) {
       this.loadingTask = loadingTask;
 
-      source.disableAutoFetch = PDFJS.disableAutoFetch;
-      source.disableStream = PDFJS.disableStream;
+      source.disableAutoFetch = PdfJs.disableAutoFetch;
+      source.disableStream = PdfJs.disableStream;
       source.chunkedViewerLoading = !!this.pdfDataRangeTransport;
       if (this.pdfDataRangeTransport) {
         source.length = this.pdfDataRangeTransport.length;
@@ -2846,13 +2846,13 @@ var WorkerTransport = (function WorkerTransportClosure() {
       }
       this.messageHandler.send('GetDocRequest', {
         source: source,
-        disableRange: PDFJS.disableRange,
-        maxImageSize: PDFJS.maxImageSize,
-        cMapUrl: PDFJS.cMapUrl,
-        cMapPacked: PDFJS.cMapPacked,
-        disableFontFace: PDFJS.disableFontFace,
-        disableCreateObjectURL: PDFJS.disableCreateObjectURL,
-        verbosity: PDFJS.verbosity
+        disableRange: PdfJs.disableRange,
+        maxImageSize: PdfJs.maxImageSize,
+        cMapUrl: PdfJs.cMapUrl,
+        cMapPacked: PdfJs.cMapPacked,
+        disableFontFace: PdfJs.disableFontFace,
+        disableCreateObjectURL: PdfJs.disableCreateObjectURL,
+        verbosity: PdfJs.verbosity
       });
     },
 
@@ -2915,7 +2915,7 @@ var WorkerTransport = (function WorkerTransportClosure() {
         then(function transportMetadata(results) {
         return {
           info: results[0],
-          metadata: (results[1] ? new PDFJS.Metadata(results[1]) : null)
+          metadata: (results[1] ? new PdfJs.Metadata(results[1]) : null)
         };
       });
     },
@@ -3135,7 +3135,7 @@ var InternalRenderTask = (function InternalRenderTaskClosure() {
       if (this.cancelled) {
         return;
       }
-      if (PDFJS.pdfBug && 'StepperManager' in globalScope &&
+      if (PdfJs.pdfBug && 'StepperManager' in globalScope &&
           globalScope.StepperManager.enabled) {
         this.stepper = globalScope.StepperManager.create(this.pageNumber - 1);
         this.stepper.init(this.operatorList);
@@ -3221,7 +3221,7 @@ var InternalRenderTask = (function InternalRenderTaskClosure() {
 })();
 
 
-var Metadata = PDFJS.Metadata = (function MetadataClosure() {
+var Metadata = PdfJs.Metadata = (function MetadataClosure() {
   function fixMetadata(meta) {
     return meta.replace(/>\\376\\377([^<]+)/g, function(all, codes) {
       var bytes = codes.replace(/\\([0-3])([0-7])([0-7])/g,
@@ -3753,12 +3753,12 @@ var CanvasGraphics = (function CanvasGraphicsClosure() {
     if (imgData.kind === ImageKind.GRAYSCALE_1BPP) {
       // Grayscale, 1 bit per pixel (i.e. black-and-white).
       var srcLength = src.byteLength;
-      var dest32 = PDFJS.hasCanvasTypedArrays ? new Uint32Array(dest.buffer) :
+      var dest32 = PdfJs.hasCanvasTypedArrays ? new Uint32Array(dest.buffer) :
         new Uint32ArrayView(dest);
       var dest32DataLength = dest32.length;
       var fullSrcDiff = (width + 7) >> 3;
       var white = 0xFFFFFFFF;
-      var black = (PDFJS.isLittleEndian || !PDFJS.hasCanvasTypedArrays) ?
+      var black = (PdfJs.isLittleEndian || !PdfJs.hasCanvasTypedArrays) ?
         0xFF000000 : 0x000000FF;
       for (i = 0; i < totalChunks; i++) {
         thisChunkHeight =
@@ -5833,7 +5833,7 @@ var WebGLUtils = (function WebGLUtilsClosure() {
 
   return {
     get isEnabled() {
-      if (PDFJS.disableWebGL) {
+      if (PdfJs.disableWebGL) {
         return false;
       }
       var enabled = false;
@@ -6256,14 +6256,14 @@ var TilingPattern = (function TilingPatternClosure() {
 })();
 
 
-PDFJS.disableFontFace = false;
+PdfJs.disableFontFace = false;
 
 var FontLoader = {
   insertRule: function fontLoaderInsertRule(rule) {
-    var styleElement = document.getElementById('PDFJS_FONT_STYLE_TAG');
+    var styleElement = document.getElementById('PdfJs_FONT_STYLE_TAG');
     if (!styleElement) {
       styleElement = document.createElement('style');
-      styleElement.id = 'PDFJS_FONT_STYLE_TAG';
+      styleElement.id = 'PdfJs_FONT_STYLE_TAG';
       document.documentElement.getElementsByTagName('head')[0].appendChild(
         styleElement);
     }
@@ -6273,7 +6273,7 @@ var FontLoader = {
   },
 
   clear: function fontLoaderClear() {
-    var styleElement = document.getElementById('PDFJS_FONT_STYLE_TAG');
+    var styleElement = document.getElementById('PdfJs_FONT_STYLE_TAG');
     if (styleElement) {
       styleElement.parentNode.removeChild(styleElement);
     }
@@ -6542,7 +6542,7 @@ var FontFaceObject = (function FontFaceObjectClosure() {
         return null;
       }
 
-      if (PDFJS.disableFontFace) {
+      if (PdfJs.disableFontFace) {
         this.disableFontFace = true;
         return null;
       }
@@ -6551,7 +6551,7 @@ var FontFaceObject = (function FontFaceObjectClosure() {
 
       FontLoader.addNativeFontFace(nativeFontFace);
 
-      if (PDFJS.pdfBug && 'FontInspector' in globalScope &&
+      if (PdfJs.pdfBug && 'FontInspector' in globalScope &&
           globalScope['FontInspector'].enabled) {
         globalScope['FontInspector'].fontAdded(this);
       }
@@ -6563,7 +6563,7 @@ var FontFaceObject = (function FontFaceObjectClosure() {
         return null;
       }
 
-      if (PDFJS.disableFontFace) {
+      if (PdfJs.disableFontFace) {
         this.disableFontFace = true;
         return null;
       }
@@ -6577,7 +6577,7 @@ var FontFaceObject = (function FontFaceObjectClosure() {
       var rule = '@font-face { font-family:"' + fontName + '";src:' + url + '}';
       FontLoader.insertRule(rule);
 
-      if (PDFJS.pdfBug && 'FontInspector' in globalScope &&
+      if (PdfJs.pdfBug && 'FontInspector' in globalScope &&
           globalScope['FontInspector'].enabled) {
         globalScope['FontInspector'].fontAdded(this, url);
       }
@@ -6735,7 +6735,7 @@ var AnnotationUtils = (function AnnotationUtilsClosure() {
     image.style.height = container.style.height;
     image.style.width = container.style.width;
     var iconName = item.name;
-    image.src = PDFJS.imageResourcesPath + 'annotation-' +
+    image.src = PdfJs.imageResourcesPath + 'annotation-' +
       iconName.toLowerCase() + '.svg';
     image.alt = '[{{type}} Annotation]';
     image.dataset.l10nId = 'text_annotation_type';
@@ -6840,7 +6840,7 @@ var AnnotationUtils = (function AnnotationUtilsClosure() {
 
     var link = document.createElement('a');
     link.href = link.title = item.url || '';
-    if (item.url && PDFJS.openExternalLinksInNewWindow) {
+    if (item.url && PdfJs.openExternalLinksInNewWindow) {
       link.target = '_blank';
     }
 
@@ -6866,7 +6866,7 @@ var AnnotationUtils = (function AnnotationUtilsClosure() {
     getHtmlElement: getHtmlElement
   };
 })();
-PDFJS.AnnotationUtils = AnnotationUtils;
+PdfJs.AnnotationUtils = AnnotationUtils;
 
 
 var SVG_DEFAULTS = {
@@ -7057,7 +7057,7 @@ var convertImgDataToPng = (function convertImgDataToPngClosure() {
     offset += CHUNK_WRAPPER_SIZE + idat.length;
     writePngChunk('IEND', new Uint8Array(0), data, offset);
 
-    return PDFJS.createObjectURL(data, 'image/png');
+    return PdfJs.createObjectURL(data, 'image/png');
   }
 
   return function convertImgDataToPng(imgData) {
@@ -7284,7 +7284,7 @@ var SVGGraphics = (function SVGGraphicsClosure() {
 
     transform: function SVGGraphics_transform(a, b, c, d, e, f) {
       var transformMatrix = [a, b, c, d, e, f];
-      this.transformMatrix = PDFJS.Util.transform(this.transformMatrix,
+      this.transformMatrix = PdfJs.Util.transform(this.transformMatrix,
                                                   transformMatrix);
 
       this.tgrp = document.createElementNS(NS, 'svg:g');
@@ -7608,7 +7608,7 @@ var SVGGraphics = (function SVGGraphicsClosure() {
         this.defs.appendChild(this.cssStyle);
       }
 
-      var url = PDFJS.createObjectURL(fontObj.data, fontObj.mimetype);
+      var url = PdfJs.createObjectURL(fontObj.data, fontObj.mimetype);
       this.cssStyle.textContent +=
         '@font-face { font-family: "' + fontObj.loadedName + '";' +
         ' src: url(' + url + '); }\n';
@@ -8039,14 +8039,14 @@ var SVGGraphics = (function SVGGraphicsClosure() {
   return SVGGraphics;
 })();
 
-PDFJS.SVGGraphics = SVGGraphics;
+PdfJs.SVGGraphics = SVGGraphics;
 
 
 }).call((typeof window === 'undefined') ? this : window);
 
-if (!PDFJS.workerSrc && typeof document !== 'undefined') {
+if (!PdfJs.workerSrc && typeof document !== 'undefined') {
   // workerSrc is not set -- using last script url to define default location
-  PDFJS.workerSrc = (function () {
+  PdfJs.workerSrc = (function () {
     'use strict';
     var scriptTagContainer = document.body ||
                              document.getElementsByTagName('head')[0];

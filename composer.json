@@ -1,13 +1,13 @@
 {
     "name" : "nti/pdfjs-bundle",
-    "description" : "Symfony NTIPDFJSBundle",
+    "description" : "Symfony NTIPdfJsBundle",
     "type" : "symfony-bundle",
     "authors" : [{
         "name" : "Benjamin Vison",
         "email" : "benjamin@syneteksolutions.com"
     }],
     "keywords" : [
-        "PDFJSBundle"
+        "PdfJsBundle"
     ],
     "license" : [
         "MIT"
@@ -20,7 +20,7 @@
             "NTI\\PDFSJSBundle" : ""
         }
     },
-    "target-dir" : "NTI/PDFJSBundle",
+    "target-dir" : "NTI/PdfJsBundle",
     "repositories" : [{
     }],
     "extra" : {

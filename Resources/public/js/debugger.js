@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* globals PDFJS */
+/* globals PdfJs */
 
 'use strict';
 
@@ -309,8 +309,8 @@ var Stepper = (function StepperClosure() {
       this.table = table;
       if (!opMap) {
         opMap = Object.create(null);
-        for (var key in PDFJS.OPS) {
-          opMap[PDFJS.OPS[key]] = key;
+        for (var key in PdfJs.OPS) {
+          opMap[PdfJs.OPS[key]] = key;
         }
       }
     },
@@ -462,7 +462,7 @@ var Stats = (function Stats() {
     manager: null,
     init: function init() {
       this.panel.setAttribute('style', 'padding: 5px;');
-      PDFJS.enableStats = true;
+      PdfJs.enableStats = true;
     },
     enabled: false,
     active: false,
