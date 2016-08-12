@@ -17,7 +17,7 @@
     },
     "autoload" : {
         "psr-0" : {
-            "NTI\\PDFSJSBundle" : ""
+            "NTI\\PdfJsBundle" : ""
         }
     },
     "target-dir" : "NTI/PdfJsBundle",
