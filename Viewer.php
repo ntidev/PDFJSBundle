@@ -34,8 +34,10 @@ class Viewer {
         ));
     }
 
-    public function viewFromPath($path, $filename) {
-        // Todo: Implement
+    public function viewFromPath($path, $pdf) {
+        return $this->templating->render('NTIPdfJsBundle:Viewer:viewer.html.twig', array(
+            'file' => $pdf
+        ));
     }
 
 }
