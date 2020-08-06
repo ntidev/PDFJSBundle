@@ -4,20 +4,20 @@ namespace NTI\PdfJsBundle;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 class Viewer {
 
     /** @var ContainerAwareInterface $container */
     private $container;
 
-    /** @var EngineInterface $templating */
+    /** @var Environment $templating */
     private $templating;
 
     /** @var Router $router */
     private $router;
 
-    public function __construct(ContainerInterface $container, EngineInterface $templating, Router $router) {
+    public function __construct(ContainerInterface $container, Environment $templating, Router $router) {
         $this->container = $container;
         $this->templating = $templating;
         $this->router = $router;
